@@ -1,9 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     const driversListContainer = document.getElementById('drivers-list');
     const racesListContainer = document.getElementById('races-list');
+    const chatMessagesContainer = document.getElementById('chat-messages'); // New: Chat messages div
+    const usernameInput = document.getElementById('username-input'); // New: Username input
+    const messageInput = document.getElementById('message-input'); // New: Message input
+    const sendMessageBtn = document.getElementById('send-message-btn'); // New: Send button
 
     // Function to fetch and display drivers (existing)
     async function fetchDrivers() {
+        // ... (keep the existing fetchDrivers function as is) ...
         try {
             const response = await fetch('/api/drivers');
             if (!response.ok) {
@@ -40,8 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to fetch and display races (updated to include prediction)
+    // Function to fetch and display races (existing)
     async function fetchRaces() {
+        // ... (keep the existing fetchRaces function as is) ...
         try {
             const response = await fetch('/api/races');
             if (!response.ok) {
@@ -86,8 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="text-gray-600 mt-2">Highlights: <span class="text-sm">${race.raceHighlights}</span></p>
                     <p class="text-gray-600">Key Tactics: <span class="text-sm">${race.keyTactics}</span></p>
                     <p class="text-blue-700 font-bold mt-3">Predicted Winner: <span class="font-semibold">${predictionText}</span></p>
-                `; // Added prediction line
-                raceCard.id = `race-card-${race.id}`; // Add ID for potential future use
+                `;
+                raceCard.id = `race-card-${race.id}`;
 
                 racesListContainer.appendChild(raceCard);
             }
@@ -98,7 +104,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Call both functions when the page loads
+    // --- New function to fetch and display chat messages ---
+    async function fetchChatMessages() {
+        try {
+            const response = await fetch('/api/chat');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const messages = await response.json();
+
+            chatMessagesContainer.innerHTML = ''; // Clear existing content
+
+            if (messages.length === 0) {
+                chatMessagesContainer.innerHTML = '<p class="text-center text-gray-500">No messages yet. Be the first!</p>';
+                return;
+            }
+
+            messages.forEach(msg => {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'mb-2 p-2 rounded';
+                if (msg.username === usernameInput.value && usernameInput.value !== '') { // Highlight user's own messages
+                    messageElement.classList.add('bg-blue-100', 'text-right');
+                } else {
+                    messageElement.classList.add('bg-gray-50');
+                }
+
+                const timestamp = new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                messageElement.innerHTML = `
+                    <span class="font-bold text-blue-800">${msg.username}:</span>
+                    <span>${msg.message}</span>
+                    <span class="text-xs text-gray-500 ml-2">${timestamp}</span>
+                `;
+                chatMessagesContainer.appendChild(messageElement);
+            });
+            // Scroll to the bottom of the chat
+            chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+
+        } catch (error) {
+            console.error('Error fetching chat messages:', error);
+            chatMessagesContainer.innerHTML = '<p class="text-center text-red-500">Failed to load chat messages.</p>';
+        }
+    }
+
+    // --- New function to send a chat message ---
+    async function sendMessage() {
+        const username = usernameInput.value.trim();
+        const message = messageInput.value.trim();
+
+        if (username === '' || message === '') {
+            alert('Please enter your name and a message.');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, message }) // Send data as JSON
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            messageInput.value = ''; // Clear message input after sending
+            fetchChatMessages(); // Refresh chat messages to show the new one
+
+        } catch (error) {
+            console.error('Error sending message:', error);
+            alert('Failed to send message.');
+        }
+    }
+
+    // --- Event Listeners for Chat ---
+    sendMessageBtn.addEventListener('click', sendMessage);
+    messageInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
+        }
+    });
+    // --- End Event Listeners ---
+
+
+    // Call all functions when the page loads
     fetchDrivers();
     fetchRaces();
+    fetchChatMessages(); // New: Call the chat function
 });

@@ -20,8 +20,20 @@
             </div>
 
         <h2 class="text-2xl font-semibold mb-4">F1 Races</h2>
-        <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
             </div>
+
+        <h2 class="text-2xl font-semibold mb-4">F1 Fan Chat</h2>
+        <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+            <div id="chat-messages" class="h-64 overflow-y-auto bg-white p-4 rounded mb-4 shadow-inner">
+                <p class="text-center text-gray-500">Loading messages...</p>
+            </div>
+            <div class="flex space-x-2">
+                <input type="text" id="username-input" placeholder="Your Name" class="p-2 border rounded flex-none w-1/4">
+                <input type="text" id="message-input" placeholder="Type your message..." class="p-2 border rounded flex-grow">
+                <button id="send-message-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Send</button>
+            </div>
+        </div>
     </div>
 
     <script src="/js/main.js"></script>
