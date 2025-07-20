@@ -6,7 +6,18 @@
     <title>Grand Prix Hub - F1 Fan's Companion</title>
     <link rel="stylesheet" href="/css/output.css">
 </head>
-<body>
+<body class="bg-gray-50">
+    <nav class="bg-gray-800 p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-white text-2xl font-bold">Grand Prix Hub</a>
+            <div>
+                <a href="#drivers-section" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Drivers</a>
+                <a href="#races-section" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Races</a>
+                <a href="#chat-section" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Chat</a>
+                </div>
+        </div>
+    </nav>
+
     <h1 class="text-3xl font-bold text-center mt-8 text-blue-800">
         Welcome to Grand Prix Hub!
     </h1>
@@ -15,27 +26,37 @@
     </p>
 
     <div class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-semibold mb-4">F1 Drivers</h2>
-        <div id="drivers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            </div>
+        <section id="drivers-section" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">F1 Drivers</h2>
+            <div id="drivers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                </div>
+        </section>
 
-        <h2 class="text-2xl font-semibold mb-4">F1 Races</h2>
-        <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            </div>
+        <section id="races-section" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">F1 Races</h2>
+            <div id="races-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                </div>
+        </section>
 
-        <h2 class="text-2xl font-semibold mb-4">F1 Fan Chat</h2>
-        <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
-            <div id="chat-messages" class="h-64 overflow-y-auto bg-white p-4 rounded mb-4 shadow-inner">
-                <p class="text-center text-gray-500">Loading messages...</p>
+        <section id="chat-section" class="mb-12">
+            <h2 class="text-2xl font-semibold mb-4">F1 Fan Chat</h2>
+            <div class="bg-gray-100 p-6 rounded-lg shadow-lg">
+                <div id="chat-messages" class="h-64 overflow-y-auto bg-white p-4 rounded mb-4 shadow-inner">
+                    <p class="text-center text-gray-500">Loading messages...</p>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="text" id="username-input" placeholder="Your Name" class="p-2 border rounded flex-none w-1/4">
+                    <input type="text" id="message-input" placeholder="Type your message..." class="p-2 border rounded flex-grow">
+                    <button id="send-message-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Send</button>
+                </div>
             </div>
-            <div class="flex space-x-2">
-                <input type="text" id="username-input" placeholder="Your Name" class="p-2 border rounded flex-none w-1/4">
-                <input type="text" id="message-input" placeholder="Type your message..." class="p-2 border rounded flex-grow">
-                <button id="send-message-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors duration-300">Send</button>
-            </div>
-        </div>
+        </section>
     </div>
+    </div> <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+            <p>&copy; 2025 Grand Prix Hub. All rights reserved.</p>
+            <p>Built with ❤️ for F1 Fans.</p>
+        </footer>
 
-    <script src="/js/main.js"></script>
-</body>
+        <script src="/js/main.js"></script>
+    </body>
 </html>
