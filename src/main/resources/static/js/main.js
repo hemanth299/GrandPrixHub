@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // --- End Fetch Prediction ---
 
                 raceCard.innerHTML = `
-                    <h3 class="text-xl font-semibold mb-2 text-gray-800">${race.name} (${race.year})</h3>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">${race.name} (${race.raceYear})</h3>
                     <p class="text-gray-600">Circuit: <span class="font-medium">${race.circuit}</span></p>
                     <p class="text-gray-600">Date: <span class="font-medium">${race.date}</span></p>
                     <p class="text-gray-600">Winner: <span class="font-medium">${race.winnerDriverId ? race.winnerDriverId.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ') : 'N/A'}</span></p>

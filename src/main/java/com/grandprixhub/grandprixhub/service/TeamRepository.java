@@ -3,8 +3,8 @@ package com.grandprixhub.grandprixhub.service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.grandprixhub.grandprixhub.model.Race;
+import com.grandprixhub.grandprixhub.model.Team;
 
 @Repository
-public interface RaceRepository extends JpaRepository<Race, Long> {
+public interface TeamRepository extends JpaRepository<Team, Long> {
 }

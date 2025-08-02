@@ -1,5 +1,9 @@
 package com.grandprixhub.grandprixhub.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,14 +11,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Driver {
-    private String id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id; // Changed from String to Long
+    
     private String firstName;
     private String lastName;
     private String nationality;
     private int permanentNumber;
     private String team;
-    private int grandPrixStarts; // Number of Grand Prix starts
-    private int championshipVictories; // Number of World Championship victories
-    private int grandPrixVictories; // New field: Number of individual Grand Prix wins
+    private int grandPrixStarts;
+    private int championshipVictories;
+    private int grandPrixVictories;
 }
